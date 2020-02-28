@@ -88,10 +88,32 @@ class Car {
   fill(gallons) {
     this.tank += gallons
   }
+
+
   drive(distance) {
-    const maxDistance = distance / this.milesPerGallon;
-    this.odometer++;
-    this.milesPerGallon--;
+    this.odometer += this.odometer
+    let fuelUsed = distance - this.milesPerGallon
+    let driveableMiles = this.tank / this.milesPerGallon;
+    const maxDistance = this.tank * this.milesPerGallon;
+
+    // if (distance < driveableMiles) {
+    //   distance += this.odometer;
+    // }
+    if (distance > maxDistance) {
+      this.odometer += maxDistance;
+    }
+
+    if (distance > fuelUsed) {
+      this.tank -= this.tank;
+
+    }
+
+    // if (this.milesPerGallon < this.tank) {
+    //   this.tank -= this.tank;
+    //   this.odometer = this.odometer + maxDistance;
+
+    // }
+
     if (this.tank === 0) {
       return `I ran out of fuel at ${this.odometer} miles!`
     }
@@ -143,13 +165,20 @@ class Instructor extends Lambdasian {
   constructor(obj) {
     super(obj)
     this.specialty = obj.specialty,
-      this.favlanguage = obj.favlanguage,
+      this.favLanguage = obj.favLanguage,
       this.catchPhrase = obj.catchPhrase;
-
-
+    this.subject = obj.subject
 
   }
-
+  demo(subject) {
+    this.subject = subject
+    return `Today we are learning about ${this.subject}`
+  }
+  grade(student, subject) {
+    this.student = student,
+      this.subject = subject
+    return `${this.student.name} receives a perfect score on ${this.subject}`
+  }
 }
 
 /*
@@ -167,8 +196,23 @@ class Instructor extends Lambdasian {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {
+class Student extends Lambdasian {
+  constructor(obj) {
+    super(obj) //calls the parent
+    this.previousBackground = obj.previousBackground,
+      this.className = obj.className,
+      this.favSubjects = obj.favSubjects
 
+  }
+  listSubjects() {
+    return `Loving ${this.favSubjects}!`
+  }
+  PRAssignment(subject) {
+    return `${this.name} has submitted a PR for ${subject}`
+  }
+  sprintChallenge(subject) {
+    return `${this.name} has begun sprint challenge on ${subject}`
+  }
 }
 
 /*
@@ -184,7 +228,20 @@ class Student {
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
-class ProjectManager {
+class ProjectManager extends Instructor {
+  constructor(obj) {
+    super(obj)
+    this.gradClassName = obj.gradClassName,
+      this.favInstructor = obj.favInstructor
+
+  }
+  standUp(channel) {
+    return `${this.name} announces to ${channel}, @channel standy times!`
+  }
+
+  debugsCode(obj, subject) {
+    return `${this.name} debugs ${this.student.name}'s code on ${subject}`
+  }
 
 }
 
