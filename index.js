@@ -240,7 +240,7 @@ class ProjectManager extends Instructor {
   }
 
   debugsCode(obj, subject) {
-    return `${this.name} debugs ${this.student.name}'s code on ${subject}`
+    return `${this.name} debugs ${obj.name}'s code on ${subject}`
   }
 
 }
