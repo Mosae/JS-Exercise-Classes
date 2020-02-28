@@ -91,30 +91,17 @@ class Car {
 
 
   drive(distance) {
-    this.odometer += this.odometer
-    let fuelUsed = distance - this.milesPerGallon
-    let driveableMiles = this.tank / this.milesPerGallon;
-    const maxDistance = this.tank * this.milesPerGallon;
 
-    // if (distance < driveableMiles) {
-    //   distance += this.odometer;
-    // }
-    if (distance > maxDistance) {
-      this.odometer += maxDistance;
-    }
+    const fuelUsed = distance / this.milesPerGallon
 
-    if (distance > fuelUsed) {
-      this.tank -= this.tank;
+    const availFuel = this.tank * this.milesPerGallon;
 
-    }
-
-    // if (this.milesPerGallon < this.tank) {
-    //   this.tank -= this.tank;
-    //   this.odometer = this.odometer + maxDistance;
-
-    // }
-
-    if (this.tank === 0) {
+    if (this.tank > fuelUsed) {
+      this.odometer += distance;
+      this.tank -= fuelUsed;
+    } else {
+      this.odometer += availFuel;
+      this.tank = 0;
       return `I ran out of fuel at ${this.odometer} miles!`
     }
   }
